@@ -32,13 +32,12 @@ end
 --- tail the system log
 function sys_util.tail_syslog(n)
   n = n or 10
-  -- todo: fix repl console to respect formatting (https://github.com/ngwese/maiden/issues/6)
-  return(util.os_capture("tail -n"..n.." /var/log/syslog"))  
+  return(util.os_capture("tail -n"..n.." /var/log/syslog", true))  
 end
 
 -- execute a command relative to ~/norns and return its output
 function sys_util.exec(cmd)
-  return util.os_capture("cd /home/we/norns/; "..cmd)
+  return util.os_capture("cd /home/we/norns/; "..cmd, true)
 end
 
 -- turn on wifi (useful during dev)
