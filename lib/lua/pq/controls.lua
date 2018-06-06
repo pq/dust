@@ -1,9 +1,7 @@
 -- todo:
--- 1. fix metro alloc
 -- 3. finish for_engine
 -- 4. fix up docs
 -- 5. add other engines
--- 6. add config for fade time
 -- * add global controls (verb?)
 
 local controls = { }
@@ -40,9 +38,7 @@ local function new()
   }
   setmetatable(c, controls)
   
-  -- c.metro = metro.alloc(function() i:next_event() end,1,1)
-  
-  local k = metro[1]
+  local k = metro.alloc()
   k.count = -1
   k.time = 0.1
   k.callback = function(_)
