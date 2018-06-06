@@ -11,7 +11,6 @@ function sys_util.reload(module_name)
   end
   return require(module_name)
 end
-  
 
 --- display available disk space
 function sys_util.disk_space()
@@ -42,27 +41,27 @@ function sys_util.service_logs(n)
   return(util.os_capture("journalctl --unit='norns-*.service' --lines "..n, true))  
 end
 
--- execute a command relative to ~/norns and return its output
+---- execute a command relative to ~/norns and return its output
 function sys_util.exec(cmd)
   return util.os_capture("cd /home/we/norns/; "..cmd, true)
 end
 
--- turn on wifi (useful during dev)
+--- turn on wifi (useful during dev)
 function sys_util.wifi_on()
   return sys_util.exec("./wifi.sh on")
 end
 
--- turn on wifi hotspot
+--- turn on wifi hotspot
 function sys_util.wifi_hotspot()
   return sys_util.exec("./wifi.sh hotspot")
 end
 
--- select a wifi ssid and pass
+--- select a wifi ssid and pass
 function sys_util.wifi_select(ssid, pass)
   return sys_util.exec("./wifi.sh select "..ssid.." "..pass)
 end
 
--- restart norns subsystems (crone, matron, ...)
+--- restart norns subsystems (crone, matron, ...)
 function sys_util.restart()
   print("not implemented...")
   -- not quite right.
@@ -73,7 +72,7 @@ function sys_util.battery()
   return "battery: "..norns.battery_percent.."% "..norns.battery_current.."mA"
 end
 
--- mute audio
+--- mute audio
 function sys_util.mute()
   --todo: save state to pop for an un-mute
   norns.audio.output_level(-100)
