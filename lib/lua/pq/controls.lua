@@ -65,7 +65,7 @@ end
 -- @param config.name parameter name
 -- @param config.minval parameter minval
 -- @param config.maxval parameter maxval
--- @param config.default parameter default value
+-- @param config.default parameter default value optional; defaults to minval)
 -- @param config.step parameter step value (optional; defaults to 0)
 -- @param config.warp parameter warp (optional; defaults to "lin")
 -- @param config.units parameter units (optional; defaults to "")
@@ -83,7 +83,7 @@ function controls:add_param(config)
       required_param(config, "maxval"),
       config.warp or "lin",
       config.step or 0,
-      required_param(config, "default"),
+      config.default or config.minval,
       config.units or ""
     )
   )
