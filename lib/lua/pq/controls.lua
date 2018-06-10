@@ -10,6 +10,9 @@ controls.__index = controls
 -- max slider value
 local slider_max = 32
 
+-- dampen sensitivity to make the param chooser (ENC 2) less twitchy
+local chooser_enc_sens = 0.2 
+
 ------------------------------------------------------------------------
 ------
 -----  utils
@@ -31,7 +34,7 @@ local function new()
   local c = {
     scalers = {},
     sliders = {},
-    output_mix = true, -- wether to mix output w/ ENC 1
+    output_mix = true, -- whether to mix output w/ ENC 1
     index = 1, -- current param index
     edit = 1,  -- param under edit
     ticks = 0
@@ -96,7 +99,6 @@ local function new_poly_sub()
   c:add_param{name="timbre", minval=0, maxval = 1, default = 0.5}
   c:add_param{name="noise", minval=0, maxval = 1, default = 0}
   c:add_param{name="cut", minval=0, maxval = 32, default = 8}
-  c:add_param{name="cutEnvAmt", minval=0, maxval = 1, default = 0}
   c:add_param{name="cutAtk", minval=0.01, maxval = 10, default = 0.05}
   c:add_param{name="cutDec", minval=0, maxval = 2, default = 0.1}
   c:add_param{name="cutSus", minval=0, maxval = 1, default = 1}
@@ -153,6 +155,9 @@ function controls:enc(n, delta)
   if n == 1 and self.output_mix then
     mix:delta("output", delta)
   elseif n == 2 then
+    -- de-twitch param chooser encoder
+    -- move to init() once state is stored and restored (norns#414).
+    norns.encoders.set_sens(2, chooser_enc_sens)
     self.index = ((self.index + delta - 1) % (#self.sliders)) + 1
     self.edit = self.index
   elseif n == 3 then
