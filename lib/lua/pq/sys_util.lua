@@ -2,6 +2,10 @@
 --
 -- system utilities and conveniences.
 --
+-- load into the repl, like so:
+--
+-- >> su = require "pq/sys_util"
+--
 local sys_util = {}
 
 function sys_util.reload(module_name)
@@ -65,7 +69,7 @@ end
 function sys_util.restart()
   print("not implemented...")
   -- not quite right.
-  -- os.execute("sleep 0.5; ~/norns/stop.sh; ~/norns/start.sh")
+  -- os.execute("sleep 0.5; (~/norns/stop.sh; ~/norns/start.sh) &")
 end
 
 function sys_util.battery()
